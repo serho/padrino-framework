@@ -240,7 +240,7 @@ if defined?(ActiveRecord)
       desc "Create a db/schema.rb file that can be portably used against any DB supported by AR"
       task :dump => :environment do
         require 'active_record/schema_dumper'
-        File.open(ENV['SCHEMA'] || Padrino.root("db", "schema.rb"), "w") do |file|
+        File.open(ENV['SCHEMA'] || Padrino.root("db", "schema.rb"), "w", :external_encoding => Encoding.default_external) do |file|
           ActiveRecord::SchemaDumper.dump(ActiveRecord::Base.connection, file)
         end
         Rake::Task["ar:schema:dump"].reenable
